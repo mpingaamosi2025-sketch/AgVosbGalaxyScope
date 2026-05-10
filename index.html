@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgVosb GalaxyScope - NASA Picture of the Day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">🌌 AgVosb GalaxyScope</h1>
+                <p class="tagline">Explore the Universe - NASA Astronomy Picture of the Day</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Loading State -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Loading cosmic wonders...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error" style="display: none;"></div>
+
+            <!-- Content -->
+            <div id="content" class="content" style="display: none;">
+                <!-- Image Section -->
+                <div class="image-section">
+                    <div class="image-container">
+                        <img id="apod-image" src="" alt="NASA Astronomy Picture of the Day" class="apod-image">
+                        <div class="image-date" id="image-date"></div>
+                    </div>
+                </div>
+
+                <!-- Information Section -->
+                <div class="info-section">
+                    <h2 id="apod-title" class="apod-title"></h2>
+                    
+                    <div class="date-info">
+                        <span class="date-label">Date:</span>
+                        <span id="apod-date-display"></span>
+                    </div>
+
+                    <div class="description-box">
+                        <p id="apod-explanation" class="apod-explanation"></p>
+                    </div>
+
+                    <div class="media-info">
+                        <span id="media-type" class="media-type"></span>
+                        <a id="hd-link" href="#" target="_blank" class="hd-link" style="display: none;">View HD Version</a>
+                    </div>
+                </div>
+
+                <!-- Controls Section -->
+                <div class="controls">
+                    <button id="prev-btn" class="btn btn-prev">← Previous Day</button>
+                    <input type="date" id="date-picker" class="date-picker">
+                    <button id="next-btn" class="btn btn-next">Next Day →</button>
+                    <button id="today-btn" class="btn btn-today">Today's Picture</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Data provided by NASA's Astronomy Picture of the Day API</p>
+            <p class="footer-credit">&copy; 2026 AgVosb GalaxyScope | Exploring the Cosmos</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

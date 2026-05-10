@@ -1,0 +1,539 @@
+/* ============================================================
+   AgVosb GalaxyScope - NASA APOD Viewer
+   Modern Space-Themed Design
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #0a0e27;
+    --secondary-color: #1a1f3a;
+    --accent-color: #00d4ff;
+    --accent-purple: #9d4edd;
+    --accent-pink: #ff006e;
+    --text-light: #e0e0e0;
+    --text-dark: #ffffff;
+    --border-color: #2a2f4a;
+    --success-color: #00ff88;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1a0033 50%, var(--primary-color) 100%);
+    background-attachment: fixed;
+    color: var(--text-light);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Animated background stars effect */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ============================================================
+   CONTAINER & LAYOUT
+   ============================================================ */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, rgba(157, 78, 221, 0.05) 100%);
+    border-bottom: 2px solid var(--border-color);
+    border-radius: 15px;
+    margin-bottom: 40px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.logo {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+/* ============================================================
+   LOADING STATE
+   ============================================================ */
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(0, 212, 255, 0.2);
+    border-top: 4px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+
+.error {
+    background: rgba(255, 0, 110, 0.1);
+    border: 2px solid var(--accent-pink);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    color: #ff6b9d;
+    text-align: center;
+    font-size: 1.1rem;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* ============================================================
+   CONTENT SECTIONS
+   ============================================================ */
+
+.content {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.image-section {
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.6) 0%, rgba(157, 78, 221, 0.1) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+    animation: slideUp 0.8s ease-out;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    background: var(--primary-color);
+}
+
+.apod-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 600px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: brightness(0.95) contrast(1.05);
+    transition: transform 0.3s ease;
+}
+
+.apod-image:hover {
+    transform: scale(1.02);
+}
+
+.image-date {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 212, 255, 0.9);
+    color: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+
+/* ============================================================
+   INFO SECTION
+   ============================================================ */
+
+.info-section {
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(26, 31, 58, 0.5) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(157, 78, 221, 0.15);
+    animation: slideUp 0.8s ease-out 0.1s both;
+}
+
+.apod-title {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.date-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 12px 16px;
+    background: rgba(0, 212, 255, 0.1);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 8px;
+}
+
+.date-label {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.description-box {
+    background: rgba(10, 14, 39, 0.6);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--accent-purple);
+}
+
+.apod-explanation {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    text-align: justify;
+}
+
+.media-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--success-color);
+}
+
+.media-type {
+    background: var(--success-color);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.hd-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid var(--accent-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.hd-link:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+/* ============================================================
+   CONTROLS
+   ============================================================ */
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.6) 0%, rgba(157, 78, 221, 0.1) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-purple));
+    color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 212, 255, 0.5);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-prev::before {
+    content: "← ";
+}
+
+.btn-next::after {
+    content: " →";
+}
+
+.btn-today {
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-color));
+}
+
+.date-picker {
+    padding: 12px 16px;
+    font-size: 1rem;
+    background: rgba(10, 14, 39, 0.8);
+    color: var(--text-light);
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.date-picker:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    background: rgba(10, 14, 39, 0.95);
+}
+
+.date-picker::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 2px solid var(--border-color);
+    color: var(--text-light);
+    font-size: 0.95rem;
+    animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.footer p {
+    margin: 8px 0;
+}
+
+.footer-credit {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 2.5rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .apod-title {
+        font-size: 1.8rem;
+    }
+
+    .info-section {
+        padding: 25px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn,
+    .date-picker {
+        width: 100%;
+    }
+
+    .media-info {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .hd-link {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .header {
+        padding: 40px 20px 30px;
+        margin-bottom: 30px;
+    }
+
+    .apod-image {
+        max-height: 400px;
+    }
+
+    .apod-explanation {
+        font-size: 1rem;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    .header {
+        padding: 30px 15px 20px;
+        margin-bottom: 20px;
+    }
+
+    .image-section {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info-section {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .apod-title {
+        font-size: 1.5rem;
+    }
+
+    .controls {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .date-picker {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+}
